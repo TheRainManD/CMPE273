@@ -1,4 +1,5 @@
 import asyncio
+import uvloop
 import sys
 import math
 import numpy as np
@@ -11,8 +12,8 @@ def file_read(path):
             lst.append(int(line.rstrip('\n')))
     return lst
 
-async def merge_sort(unsorted_lst):
-    if len(unsorted_lst) > 1:
+def merge_sort(unsorted_lst):
+    if len(list(unsorted_lst)) > 1:
         mid = len(unsorted_lst) // 2
         left = unsorted_lst[:mid]
         right = unsorted_lst[mid:]
@@ -36,21 +37,25 @@ async def merge_sort(unsorted_lst):
             unsorted_lst[k] = right[j]
             j += 1
             k += 1
+    return unsorted_lst
 
 class MinHeapNode: 
-    async def __init__(self, num, input_index, next_index): 
+    async def create(self, num, input_index, next_index): 
         self.num = num 
         self.input_index = input_index         
-        self.next_index = next_index           
+        self.next_index = next_index
+        return self
   
 class MinHeap: 
-    async def __init__(self, lst, size): 
+    async def create(self, lst, size):
+        self = MinHeap()
         self.heap_size = size 
         self.node = lst 
         i = (self.heap_size - 1) // 2
         while i >= 0: 
             self.min_heapify(i) 
             i -= 1
+        return self
       
     async def get_min(self): 
         if self.heap_size <= 0: 
@@ -97,14 +102,17 @@ async def merge_k_sorted_lists(lst, size):
     heap = [] 
     result_size = 0
     for i in range(len(lst)): 
-        node = MinHeapNode(lst[i][0], i, 1) 
+        node = MinHeapNode()
+        node.create(lst[i][0], i, 1)
+        #await asyncio.gather(node.create(lst[i][0], i, 1))
         heap.append(node) 
-        result_size += len(lst[i]) 
+        result_size += len(lst[i])
   
-    min_heap = MinHeap(heap, size) 
+    min_heap = MinHeap()
+    min_heap.create(heap, size) 
     result = [0]*result_size 
     for i in range(result_size): 
-        root = min_heap.get_min() 
+        root = min_heap.get_min()
         result[i] = root.num 
         if root.next_index < len(lst[root.input_index]): 
             root.num = lst[root.input_index][root.next_index] 
@@ -112,7 +120,7 @@ async def merge_k_sorted_lists(lst, size):
         else: 
             root.num = sys.maxsize 
         min_heap.replace_min(root)
-        
+         
     for x in result: 
         sorted_lst.append(x)
         
@@ -120,6 +128,7 @@ async def merge_k_sorted_lists(lst, size):
 
 
 async def main():
+    '''
     path_1 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_1.txt"
     path_2 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_2.txt"
     path_3 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_3.txt"
@@ -131,10 +140,8 @@ async def main():
     path_9 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_9.txt"
     path_10 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_10.txt"
 
-    await asyncio.sleep(2)
     list_1 = file_read(path_1)
     merge_sort(list_1)
-    await asyncio.gather(merge_sort(list_1))
     list_2 = file_read(path_2)
     merge_sort(list_2)
     list_3 = file_read(path_3)
@@ -156,18 +163,26 @@ async def main():
 
 
     matrix = np.row_stack((list_1, list_2, list_3, list_4, list_5, list_6, list_7, list_8, list_9, list_10))
+'''
     #print(matrix)
     #print(matrix[0][1])
     #print(len(matrix))
-    sorted_lst = merge_k_sorted_lists(matrix, len(matrix)) 
-    print(sorted_lst)
+    sorted_lst = merge_k_sorted_lists(matrix, len(matrix))
+    await asyncio.gather(sorted_lst)
 
-    path = "/Users/mac/Documents/Python3.8.1/Lab1"
-    with open('sorted_list.txt', 'w') as file:
-        for item in sorted_lst:
-            file.write("%s \n" % str(item))
-        file.close()
-'''    
+
+if __name__ == "__main__":
+    path_1 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_1.txt"
+    path_2 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_2.txt"
+    path_3 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_3.txt"
+    path_4 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_4.txt"
+    path_5 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_5.txt"
+    path_6 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_6.txt"
+    path_7 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_7.txt"
+    path_8 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_8.txt"
+    path_9 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_9.txt"
+    path_10 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_10.txt"
+
     list_1 = file_read(path_1)
     merge_sort(list_1)
     list_2 = file_read(path_2)
@@ -188,9 +203,16 @@ async def main():
     merge_sort(list_9)
     list_10 = file_read(path_10)
     merge_sort(list_10)
-'''
+    matrix = np.row_stack((list_1, list_2, list_3, list_4, list_5, list_6, list_7, list_8, list_9, list_10))
+    
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
+    path = "/Users/mac/Documents/Python3.8.1/Lab1"
+    
+    with open('sorted_list.txt', 'w') as file:
+        for item in sorted_lst:
+            file.write("%s \n" % str(item))
+        file.close()
 
-
-#if __name__ == "__main__":
-
-asyncio.run(main())
+#asyncio.run(main())
