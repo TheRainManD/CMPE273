@@ -9,7 +9,7 @@ async def file_read(path):
     with open(path) as f:
         for line in f:
             lst.append(int(line.rstrip('\n')))
-    await asyncio.gather(lst)
+    #await asyncio.gather(lst)
     return lst
 
 def file_write(path):
@@ -143,20 +143,28 @@ async def main():
     path_9 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_9.txt"
     path_10 = "/Users/mac/Documents/Python3.8.1/Lab1/input/unsorted_10.txt"
     
-    list_1 = file_read(path_1)
-    list_2 = file_read(path_2)
-    list_3 = file_read(path_3)
-    list_4 = file_read(path_4)
-    list_5 = file_read(path_5)
-    list_6 = file_read(path_6)
-    list_7 = file_read(path_7)
-    list_8 = file_read(path_8)
-    list_9 = file_read(path_9)
-    list_10 = file_read(path_10)
+    list_1 = loop.create_task(file_read(path_1))
+    list_2 = loop.create_task(file_read(path_2))
+    list_3 = loop.create_task(file_read(path_3))
+    list_4 = loop.create_task(file_read(path_4))
+    list_5 = loop.create_task(file_read(path_5))
+    list_6 = loop.create_task(file_read(path_6))
+    list_7 = loop.create_task(file_read(path_7))
+    list_8 = loop.create_task(file_read(path_8))
+    list_9 = loop.create_task(file_read(path_9))
+    list_10 = loop.create_task(file_read(path_10))
+    await asyncio.wait([list_1,list_2,list_3,list_4,list_5,list_6,list_7,list_8,list_9,list_10])
+    return list_1,list_2,list_3,list_4,list_5,list_6,list_7,list_8,list_9,list_10
 
+if __name__ == "__main__":
+
+    loop = asyncio.get_event_loop()
+    list_1,list_2,list_3,list_4,list_5,list_6,list_7,list_8,list_9,list_10 = loop.run_until_complete(main())
+    loop.close()
+    print(list_1)
 
   
-    merge_sort(list_1)
+    merge_sort(list_1.result())
     merge_sort(list_2)
     merge_sort(list_3)
     merge_sort(list_4)
@@ -175,8 +183,5 @@ async def main():
 
     path = "/Users/mac/Documents/Python3.8.1/Lab1"
     file_write(path)
-
-loop = asyncio.get_event_loop()
-lst = loop.run_until_complete(main())
-loop.close()
+    loop.close()
 
