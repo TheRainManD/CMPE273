@@ -189,4 +189,3 @@ if __name__ == "__main__":
     loop.run_until_complete(file_write(path))
     
     loop.close()
-
