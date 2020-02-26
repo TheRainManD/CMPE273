@@ -1,0 +1,63 @@
+http://127.0.0.1:5000/graphql
+
+
+mutate a new student:
+mutation{
+  create_student(name: "RainA")
+}
+
+query students (get students):
+query{
+  students{
+    sid 
+    name
+  }
+}
+
+mutate a new class:
+mutation{
+  create_class(cid: 1222, name: "CMPE")
+}
+
+query an existing student:
+requirement:
+    Request
+    {
+    students(id:1238125) {
+        name
+    }
+    }
+    Response
+    {
+        "name" : "Bob Smith"
+    }
+commands:   
+query{
+  find_student(sid: 2){
+    name
+  }
+}
+
+
+query classes (get classes):
+query{
+  classes{
+    cid
+    name
+  }
+}
+
+mutate (add students to class):
+mutation{
+  add_students(cid: 1222, sid: 2)
+}
+
+query a class with added students:
+query{
+  class_student(cid: 1222){
+    name
+    students{
+      name
+    }
+  }
+}
