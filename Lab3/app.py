@@ -19,7 +19,7 @@ type_defs = """
         class_student(cid: Int): Class
     }
 
-     input nameInput {
+    input NameInput {
         name: String
     }
 

@@ -68,7 +68,7 @@ query a class with added students:
 query{
   class_student(cid: 1222){
     name
-    students{
+    c_students{
       name
     }
   }
