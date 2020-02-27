@@ -8,6 +8,8 @@ class_id = 1000
 students = []
 classes = []
 
+#create_student(name: [nameInput]): [Student]!
+
 type_defs = """
     type Query {
         hello: String!
@@ -17,10 +19,14 @@ type_defs = """
         class_student(cid: Int): Class
     }
 
+     input nameInput {
+        name: String
+    }
+
     type Mutation {
-        create_student(name: String!): Boolean!
-        create_class(cid: Int!, name: String!): Boolean!
-        add_students(cid: Int!, sid: Int!): Boolean!
+        create_student(name: String!): Student!
+        create_class(cid: Int!, name: String!): Class!
+        add_students(cid: Int!, sid: Int!): Class!
     }
 
     type Student {
@@ -31,7 +37,7 @@ type_defs = """
     type Class {
         cid: Int
         name: String
-        students: [Student]
+        c_students: [Student]!
     }
  
 """
@@ -44,7 +50,7 @@ def resolve_create_student(_, info, name):
     global student_id
     student_id += 1
     students.append({'sid': student_id, 'name': name})
-    return True
+    return {"sid": student_id, "name": name}
 
 @query.field("find_student")
 def resolve_find_student(_, info, sid):
@@ -53,8 +59,8 @@ def resolve_find_student(_, info, sid):
 
 @mutation.field("create_class")
 def resolve_create_class(_, info, cid, name):
-    classes.append({'cid': cid, 'name': name, 'students': []})
-    return True
+    classes.append({'cid': cid, 'name': name, 'c_students': []})
+    return {"cid": cid, "name": name}
 
 @query.field("students")
 def resolve_get_student(_, info):
@@ -67,11 +73,13 @@ def resolve_get_classes(_, info):
 @mutation.field("add_students")
 def resolve_add_students(_, info, sid, cid):
     s_name = next(s["name"] for s in students if s["sid"] == sid)
+    c_name = next(c["name"] for c in classes if c["cid"] == cid)
     for c in classes:
         if c["cid"] == cid:
             #has to append {"name":s_name}, due to Type Student
-            c["students"].append({"name":s_name})
-    return True
+            c["c_students"].append({"name":s_name})
+    return {"cid": cid, "name": c_name, "c_students": [{"name": s_name}]}
+
 
 @query.field("class_student")
 def resolve_class_student(_, info, cid):

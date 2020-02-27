@@ -3,7 +3,10 @@ http://127.0.0.1:5000/graphql
 
 mutate a new student:
 mutation{
-  create_student(name: "RainA")
+  create_student(name: "RainW"){
+    name
+    sid
+  }
 }
 
 query students (get students):
@@ -16,7 +19,10 @@ query{
 
 mutate a new class:
 mutation{
-  create_class(cid: 1222, name: "CMPE")
+  create_class(cid: 1222, name: "CMPE"){
+    cid
+    name
+  }
 }
 
 query an existing student:
@@ -49,7 +55,13 @@ query{
 
 mutate (add students to class):
 mutation{
-  add_students(cid: 1222, sid: 2)
+  add_students(cid: 1222, sid: 1){
+    cid
+    name
+    c_students{
+      name
+    }
+  }
 }
 
 query a class with added students:
