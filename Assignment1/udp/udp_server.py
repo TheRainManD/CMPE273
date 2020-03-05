@@ -27,12 +27,18 @@ def udp_seq_server():
     delimiter = "|:|"
     print("Server started at port " + str(UDP_PORT))
     print("Accepting a file upload: ")
+    file1 = open("result.txt","w")
+    final_message = "Upload successfully completed"
 
     while True:
         received_data, ip = s.recvfrom(BUFFER_SIZE)
         received_data = received_data.decode()
         ack = received_data.split(delimiter)[0]
         message = received_data.split(delimiter)[1]
+        if message == final_message:
+            print(final_message)
+            break
+        file1.write(message)
         print(f"Received from client: {ip}: {message}")
         s.sendto((ack + delimiter + MESSAGE).encode(), ip)
 

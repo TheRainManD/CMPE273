@@ -1,0 +1,74 @@
+Client 1:
+YZs-MacBook-Pro:tcp mac$ python3 tcp_client.py B787 1 20
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+
+
+Client 2:
+YZs-MacBook-Pro:tcp mac$ python3 tcp_client.py A330 2 14
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong
+Sending data: ping
+Received from Server: pong

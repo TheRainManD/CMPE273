@@ -1,0 +1,40 @@
+YZs-MacBook-Pro:tcp mac$ python3 tcp_server.py 
+Server started at port 5000
+Connected with Client: 127.0.0.1 57603
+Received data: Client B787: ping
+Received data: Client B787: ping
+Connected with Client: 127.0.0.1 57604
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Received data: Client B787: ping
+Received data: Client B787: ping
+Received data: Client A330: ping
+Connection with Client: 127.0.0.1 57603 closed
+Received data: Client A330: ping
+Received data: Client A330: ping
+Received data: Client A330: ping
+Received data: Client A330: ping
+Connection with Client: 127.0.0.1 57604 closed

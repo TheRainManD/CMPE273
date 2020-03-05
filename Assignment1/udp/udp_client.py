@@ -55,6 +55,7 @@ def client(id = 0):
         s.sendto((final_message + delimiter + final_message).encode(), (UDP_IP, UDP_PORT))
         print("File upload successfully completed")
         file_1.close()
+        s.close()
     except socket.error:
         print("Error! {}".format(socket.error))
         exit()
