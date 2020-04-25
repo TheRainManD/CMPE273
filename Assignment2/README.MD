@@ -1,5 +1,5 @@
 **Create a test**
-http://127.0.0.1:5000/tests  POST
+http://127.0.0.1:5000/tests  POST <br />
 sample input:
 ```json
 {
@@ -9,11 +9,11 @@ sample input:
 ```
 
 **View created test**
-http://127.0.0.1:5000/tests/1  GET
+http://127.0.0.1:5000/tests/1  GET <br />
 enter the test id of the test you want to view after /tests/
 
 **Upload scantron**
-http://127.0.0.1:5000/tests/scantrons  POST
+http://127.0.0.1:5000/tests/scantrons  POST <br />
 upload scantron in json version
 
 
