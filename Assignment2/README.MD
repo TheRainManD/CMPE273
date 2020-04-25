@@ -19,5 +19,5 @@ upload scantron in json version
 
 
 **View all submission**
-http://127.0.0.1:5000/tests/grades/1 GET
+http://127.0.0.1:5000/tests/grades/1 GET <br />
 this means to retrieve all the data releated to test id 1
