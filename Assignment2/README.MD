@@ -11,6 +11,7 @@ sample input:
 **View created test**
 http://127.0.0.1:5000/tests/1  GET <br />
 enter the test id of the test you want to view after /tests/
+<img width="972" alt="Screen Shot 2020-04-25 at 4 49 22 PM" src="https://user-images.githubusercontent.com/33642497/80293695-526b1080-8716-11ea-9c59-0b5e9c1fe549.png">
 
 **Upload scantron**
 http://127.0.0.1:5000/tests/scantrons  POST <br />
