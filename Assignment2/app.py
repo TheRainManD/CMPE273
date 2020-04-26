@@ -188,6 +188,7 @@ def grade_test(tid):
         scantron = split(scantron)
         #index = submission.index('results')
         for item in submission:
-            for q, g in zip(scantron, answers):
-                item["results"].append({"actual": q, "expected": g})
+            if not (item["results"]):
+                for q, g in zip(scantron, answers):
+                    item["results"].append({"actual": q, "expected": g})
     return jsonify(submission)
