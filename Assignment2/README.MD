@@ -37,5 +37,5 @@ upload scantron in json version
 **View all submission** <br />
 http://127.0.0.1:5000/tests/grades/1 GET <br />
 this means to retrieve all the data releated to test id 1 
-<img width="971" alt="Screen Shot 2020-04-25 at 4 49 14 PM" src="https://user-images.githubusercontent.com/33642497/80293658-f607f100-8715-11ea-9526-c75692209af7.png">
+<img width="971" alt="Screen Shot 2020-04-25 at 5 56 00 PM" src="https://user-images.githubusercontent.com/33642497/80294776-cd392900-8720-11ea-8987-0177dcb63249.png">
 
