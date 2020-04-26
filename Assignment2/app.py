@@ -91,7 +91,8 @@ def upload_scantron():
         sql_s = '''CREATE TABLE IF NOT EXISTS scantrons(
         testid INTEGER,
         scantronid INTEGER,
-        scantron TEXT
+        scantron TEXT,
+        grade INTEGER
         )'''
         cursor.execute(sql_s)
         conn.commit()
@@ -99,12 +100,11 @@ def upload_scantron():
         scantron_data = data['answers']
         for item in scantron_data.values():
             scantron.append(item)
-        print(scantron)
         scantron = listToString(scantron)
         scantron_id = int(scantron_id)
-        sql_scan = '''INSERT INTO scantrons (testid,scantronid, scantron) VALUES (?, ?, ?)'''
-        cursor.execute(sql_scan, (tid, scantron_id, scantron))
-        conn.commit()
+        #sql_scan = '''INSERT INTO scantrons (testid, scantronid, scantron) VALUES (?, ?, ?)'''
+        #cursor.execute(sql_scan, (tid, scantron_id, scantron))
+        #conn.commit()
 
         #grading algorithm
         grade = 0
@@ -114,6 +114,9 @@ def upload_scantron():
             if a == test_answers_word[i]:
                 grade += 1
             i += 1
+        sql_scan = '''INSERT INTO scantrons (testid, scantronid, scantron, grade) VALUES (?, ?, ?, ?)'''
+        cursor.execute(sql_scan, (tid, scantron_id, scantron, grade))
+        conn.commit()
 
         #jsonify
         k = 0
@@ -170,14 +173,15 @@ def grade_test(tid):
     answers = re.sub('[\W_]+', '', answers)
     answers = split(answers)
 
-    sql_2 = '''SELECT scantronid,scantron FROM scantrons WHERE testid = ?'''
+    sql_2 = '''SELECT scantronid,scantron,grade FROM scantrons WHERE testid = ?'''
     cursor.execute(sql_2,(test_id,))
     conn.commit()
     scan_data = cursor.fetchall()
     submission = []
     for row_s in scan_data:
         scantron_id = row_s[0]
-        submission.append({"test_id": test_id, "subject": subject, 'scantron_id': scantron_id, 'results':[]})
+        grade = row_s[2]
+        submission.append({"test_id": test_id, "subject": subject, 'scantron_id': scantron_id, 'grade': grade, 'results':[]})
         scantron = row_s[1]
         scantron = str(scantron)
         scantron = re.sub('[\W_]+', '', scantron)
@@ -186,5 +190,4 @@ def grade_test(tid):
         for item in submission:
             for q, g in zip(scantron, answers):
                 item["results"].append({"actual": q, "expected": g})
-
     return jsonify(submission)
