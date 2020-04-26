@@ -1,6 +1,6 @@
 **IMPORTANT !!!   Before Run** <br />
 In the app.py file, line 17 <br />
-you need to change the path of UPLOAD_FOLDER <br />
+you need to change the path of UPLOAD_FOLDER to the path of your local folder <br />
 ```python
 UPLOAD_FOLDER = '/Users/mac/Documents/Python3.8.1/Assignment2/uploads'
 ALLOWED_EXTENSIONS = set(['json'])
@@ -9,7 +9,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 This step is used to setup for upload and save upload files. <br />
 Since this is local testing, the files are saved in the local path. <br />
 **All the data is persisted in Sqlite3 DB** <br />
-**You can delete the Tests.db file before you run** <br />
+**You can delete the Tests.db file before you run if there is one** <br />
 
 **Create a test** <br />
 http://127.0.0.1:5000/tests  POST <br />
